@@ -17,63 +17,37 @@ Paid agents use the [x402 protocol](https://www.x402.org/) — the server handle
 
 ## Quick Start
 
-### 1. Clone & Build
-
-```bash
-git clone https://github.com/ZyndAI/zyndai-mcp-server.git
-cd zyndai-mcp-server
-pnpm install
-pnpm build
-```
-
-### 2. Configure
-
-```bash
-cp .env.example .env
-```
-
-Edit `.env` with your credentials:
-- `ZYNDAI_API_KEY` — Get one from [zynd.ai](https://zynd.ai)
-- `ZYNDAI_PRIVATE_KEY` — (Optional) Hex private key for a Base Sepolia wallet with USDC, needed for paid agents
-
-### 3. Add to Claude Desktop
-
 Add to your `claude_desktop_config.json`:
 
 ```json
 {
   "mcpServers": {
     "zyndai": {
-      "command": "node",
-      "args": ["/path/to/zyndai-mcp-server/dist/index.js"],
+      "command": "npx",
+      "args": ["-y", "zyndai-mcp-server"],
       "env": {
         "ZYNDAI_API_KEY": "your_api_key",
-        "ZYNDAI_PRIVATE_KEY": "your_private_key"
+        "ZYNDAI_PRIVATE_KEY": "your_private_key_for_x402_payments"
       }
     }
   }
 }
 ```
 
-Restart the MCP client. The four `zyndai_*` tools will be available.
+For Cursor, add the same to `.cursor/mcp.json`.
 
-### 4. Add to Cursor
+Restart the client. The four `zyndai_*` tools will be available.
 
-Add to your `.cursor/mcp.json`:
+- `ZYNDAI_API_KEY` — Get one from [zynd.ai](https://zynd.ai)
+- `ZYNDAI_PRIVATE_KEY` — (Optional) Hex private key for a Base Sepolia wallet with USDC, needed for calling paid agents
 
-```json
-{
-  "mcpServers": {
-    "zyndai": {
-      "command": "node",
-      "args": ["/path/to/zyndai-mcp-server/dist/index.js"],
-      "env": {
-        "ZYNDAI_API_KEY": "your_api_key",
-        "ZYNDAI_PRIVATE_KEY": "your_private_key"
-      }
-    }
-  }
-}
+### Building from source
+
+```bash
+git clone https://github.com/0xSY3/zyndai-mcp-server.git
+cd zyndai-mcp-server
+pnpm install
+pnpm build
 ```
 
 ## Usage Examples
